@@ -1,0 +1,236 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0
+}
+
+html,
+body {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: #000;
+}
+
+canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: block
+}
+
+#bgC { z-index: 1 }
+#mndC { z-index: 2 }
+#kC { z-index: 3 }
+#ptC { z-index: 4 }
+
+/* ── TOP BAR (title, never overlaps face) ── */
+#topBar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 24px 8px;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 1.4s ease;
+}
+
+#topBar.show { opacity: 1 }
+
+.t-om {
+  font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+  color: #FFD700;
+  text-shadow: 0 0 25px #FFD700, 0 0 60px #FF8C0088;
+  animation: omPulse 3s ease-in-out infinite
+}
+
+.t-center {
+  text-align: center;
+  line-height: 1.25
+}
+
+.t-title {
+  font-family: 'Cinzel Decorative', serif;
+  font-size: clamp(1rem, 2.5vw, 2rem);
+  font-weight: 900;
+  background: linear-gradient(120deg, #FFD700, #FF8C00, #FFEC80, #FFD700);
+  background-size: 300% 300%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: shimmer 3s ease infinite;
+  letter-spacing: 0.07em
+}
+
+.t-sub {
+  font-family: 'Cinzel Decorative', serif;
+  font-size: clamp(0.55rem, 1.2vw, 0.85rem);
+  color: rgba(255, 215, 0, 0.65);
+  letter-spacing: 0.18em;
+  margin-top: 2px
+}
+
+/* ── BOTTOM BAR (blessings) ── */
+#btmBar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 20;
+  text-align: center;
+  padding: 6px 20px 12px;
+  pointer-events: none;
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 1.4s ease, transform 1.4s ease;
+}
+
+#btmBar.show {
+  opacity: 1;
+  transform: translateY(0)
+}
+
+.divider {
+  width: clamp(120px, 38vw, 480px);
+  height: 1.5px;
+  margin: 5px auto;
+  background: linear-gradient(90deg, transparent, #FFD700, #FF8C00, #FFD700, transparent);
+  border-radius: 2px;
+  opacity: 0;
+  transition: opacity 1s ease
+}
+
+.divider.show { opacity: 0.72 }
+
+.wish {
+  font-family: 'Cinzel Decorative', serif;
+  font-size: clamp(0.58rem, 1.4vw, 1rem);
+  color: #FFD700;
+  letter-spacing: 0.09em;
+  text-shadow: 0 0 14px #FFD700aa;
+  margin-bottom: 2px;
+  opacity: 0;
+  transform: scale(0.9);
+  transition: opacity 0.85s ease, transform 0.85s ease
+}
+
+.wish.show {
+  opacity: 1;
+  transform: scale(1)
+}
+
+.jai {
+  font-family: 'Cinzel Decorative', serif;
+  font-size: clamp(1.1rem, 3.2vw, 2.2rem);
+  font-weight: 900;
+  background: linear-gradient(120deg, #FFD700, #FF8C00, #FFEC80, #FFD700);
+  background-size: 300% 300%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: shimmer 2.5s ease infinite;
+  letter-spacing: 0.12em;
+  margin-top: 3px;
+  opacity: 0;
+  transition: opacity 1.6s ease
+}
+
+.jai.show { opacity: 1 }
+
+.sub {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-size: clamp(0.52rem, 1.2vw, 0.82rem);
+  color: rgba(255, 215, 0, 0.62);
+  letter-spacing: 0.14em;
+  margin-top: 2px;
+  opacity: 0;
+  transition: opacity 1.2s ease
+}
+
+.sub.show { opacity: 1 }
+
+.quote {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-size: clamp(0.48rem, 1.1vw, 0.76rem);
+  color: #00FFFF88;
+  letter-spacing: 0.05em;
+  margin-top: 4px;
+  opacity: 0;
+  transition: opacity 1.2s ease
+}
+
+.quote.show { opacity: 1 }
+
+/* ── CORNER LOTUSES ── */
+.clotus {
+  position: fixed;
+  font-size: clamp(1rem, 2.2vw, 1.8rem);
+  opacity: 0.22;
+  pointer-events: none;
+  z-index: 19;
+  animation: lspin 16s linear infinite
+}
+
+.clotus.tl { top: 10px; left: 10px }
+.clotus.tr { top: 10px; right: 10px; animation-direction: reverse }
+.clotus.bl { bottom: 10px; left: 10px; animation-direction: reverse }
+.clotus.br { bottom: 10px; right: 10px }
+
+/* ── CURSOR – zero transition for instant tracking ── */
+#cursor {
+  position: fixed;
+  pointer-events: none;
+  z-index: 9999;
+  width: 13px;
+  height: 13px;
+  border-radius: 50%;
+  background: radial-gradient(circle, #FFD700, #FF8C00);
+  box-shadow: 0 0 11px 3px #FFD70099;
+  transform: translate(-50%, -50%)
+}
+
+body { cursor: none }
+
+/* ── SHOOTING STAR ── */
+.sstar {
+  position: fixed;
+  height: 2px;
+  border-radius: 2px;
+  opacity: 0;
+  z-index: 18;
+  background: linear-gradient(90deg, transparent, #FFD700cc, transparent);
+  pointer-events: none;
+  animation: shootStar 1.5s linear forwards
+}
+
+@keyframes omPulse {
+  0%, 100% { transform: scale(1) }
+  50% { transform: scale(1.08); text-shadow: 0 0 60px #FFD700, 0 0 120px #FF8C00aa }
+}
+
+@keyframes shimmer {
+  0%, 100% { background-position: 0% 50% }
+  50% { background-position: 100% 50% }
+}
+
+@keyframes lspin {
+  from { transform: rotate(0deg) }
+  to { transform: rotate(360deg) }
+}
+
+@keyframes shootStar {
+  0% { opacity: 0; transform: scaleX(0) }
+  8% { opacity: 1 }
+  100% { opacity: 0; transform: scaleX(1) translateX(55vw) }
+}
